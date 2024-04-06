@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>"Sample WebView</title>
+    <style>
+        h1 {
+       color: #000000;
+   }
+       body {
+           background-color: #D3D3D3;
+           font-family: Arial, sans-serif;
+           text-align: center;
+           padding-top: 50px;
+       }
+       input[type="text"], button {
+       padding: 10px;
+       margin: 10px;
+       border: none;
+       border-radius: 5px;
+       cursor: pointer;
+   }
+    </style>
+</head>
+<body>
+<h1>Sample WebView</h1>
+<p>
+<input type="text" id="textInput" placeholder="Enter your message">
+<br>
+<button onclick="emitEvent()">Emit Event</button>
+<br>
+<button onclick="showToastInNative('Message from web')">Send Message to Native</button>
+</p>
+<script>
+    window.addEventListener('MY_EVENT', (e) => { Android.postMessage('EVENT_GENERATED') } )
+
+    function emitEvent(){
+    var event = new Event('MY_EVENT')
+     window.dispatchEvent(event)
+  }
+
+  function updateFromNative(message){
+      document.getElementById("textInput").value = message;
+  }
+
+   function showToastInNative(toast){
+      Android.showToastInNative(toast);
+  }
+
+</script>
+</body>
+</html>
